@@ -33,9 +33,12 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
 };
 
 
+/**
+ FIXME:
+*/
+@interface JGButton : UIButton
 
-
-
+@end
 
 
 /**

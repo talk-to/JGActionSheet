@@ -64,7 +64,7 @@
 
 #pragma mark - Helpers
 
-@interface JGButton : UIButton
+@interface JGButton()
 
 @property (nonatomic, assign) NSUInteger row;
 
