@@ -431,7 +431,9 @@ static BOOL disableCustomEasing = NO;
 - (CGRect)layoutForWidth:(CGFloat)width {
     CGFloat buttonHeight = 40.0f;
     CGFloat spacing = kSpacing;
-    
+    CGFloat spacingBetweenButtons = kSpacingBetweenButtons;
+    CGFloat buttonWidthSpacing = kSpacingBetweenButtons;
+  
     CGFloat height = 0.0f;
     
     if (self.titleLabel) {
@@ -468,9 +470,9 @@ static BOOL disableCustomEasing = NO;
     }
     
     for (UIButton *button in self.buttons) {
-        height += spacing;
+        height += spacingBetweenButtons;
         
-        button.frame = (CGRect){{spacing, height}, {width-spacing*2.0f, buttonHeight}};
+        button.frame = (CGRect){{buttonWidthSpacing, height}, {width-buttonWidthSpacing*2.0f, buttonHeight}};
         
         height += buttonHeight;
     }
@@ -483,7 +485,7 @@ static BOOL disableCustomEasing = NO;
         height += CGRectGetHeight(self.contentView.frame);
     }
     
-    height += spacing;
+    height += spacingBetweenButtons;
     
     self.frame = (CGRect){CGPointZero, {width, height}};
     
