@@ -311,6 +311,33 @@ static BOOL disableCustomEasing = NO;
     return self;
 }
 
+- (instancetype)initWithButtons:(NSArray *)buttons {
+    //FIXME: add exception on invalid button obj + button background image on highlight/normal
+    self = [super init];
+    if (self) {
+      if (buttons.count) {
+          NSMutableArray *actionSheetButtons = [NSMutableArray arrayWithCapacity:buttons.count];
+          
+          for (NSUInteger index = 0; index < buttons.count; index++) {
+              JGButton *b = (JGButton *)buttons[index];
+              b.row = index;
+              [b addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+
+            
+              [self addSubview:b];
+              
+              [actionSheetButtons addObject:b];
+          }
+        
+          _buttons = actionSheetButtons.copy;
+      }
+
+    }
+  
+    return self;
+}
+
+
 #pragma mark UI
 
 - (void)setUpForContinuous:(BOOL)continuous {

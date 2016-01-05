@@ -109,6 +109,13 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message contentView:(UIView *)contentView;
 
 /**
+ Initializes the section with custom buttons.
+ @param buttons Array containing JGButtons
+ @warning Ensure that button array contains objects of class type JGButton or its subclasses.
+ */
+- (instancetype)initWithButtons:(NSArray *)buttons;
+
+/**
  Sets the button style for a specific button.
  @param buttonStyle
  @Warning If the section does not have any buttons or @c index exceeds the number of buttons an exception is thrown.
