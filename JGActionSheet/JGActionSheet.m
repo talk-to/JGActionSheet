@@ -315,12 +315,10 @@ static BOOL disableCustomEasing = NO;
 
 - (void)setUpForContinuous:(BOOL)continuous {
     if (continuous) {
-        self.backgroundColor = [UIColor clearColor];
         self.layer.cornerRadius = 0.0f;
         self.layer.shadowOpacity = 0.0f;
     }
     else {
-        self.backgroundColor = [UIColor whiteColor];
         self.layer.cornerRadius = kHostsCornerRadius;
         
         self.layer.shadowColor = [UIColor blackColor].CGColor;
