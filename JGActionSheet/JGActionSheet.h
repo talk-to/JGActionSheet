@@ -34,7 +34,8 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
 
 
 /**
- FIXME:
+ Custom button class for JGActionSheet
+ @note subclass this class to provide custom buttons to action sheet
 */
 @interface JGButton : UIButton
 

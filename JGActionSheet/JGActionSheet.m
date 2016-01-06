@@ -318,7 +318,6 @@ static BOOL disableCustomEasing = NO;
 }
 
 - (instancetype)initWithButtons:(NSArray *)buttons {
-    //FIXME: add exception on invalid button obj + button background image on highlight/normal
     self = [super init];
     if (self) {
       if (buttons.count) {
@@ -327,8 +326,10 @@ static BOOL disableCustomEasing = NO;
           for (NSUInteger index = 0; index < buttons.count; index++) {
               JGButton *b = (JGButton *)buttons[index];
               b.row = index;
+            
+              [b setBackgroundImage:[self pixelImageWithColor:[UIColor colorWithCGColor: b.layer.borderColor]]
+                           forState:UIControlStateHighlighted];
               [b addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-
             
               [self addSubview:b];
               
