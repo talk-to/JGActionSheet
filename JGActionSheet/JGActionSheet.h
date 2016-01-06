@@ -46,11 +46,6 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
  @sa JGActionSheet.
  */
 
-/** 
- Spacing between individual buttons in a JGActionSheet section
- */
-#define kSpacingBetweenButtons 0
-
 
 @interface JGActionSheetSection : UIView
 

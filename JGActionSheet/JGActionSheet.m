@@ -47,6 +47,12 @@
 #define iPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #endif
 
+/**
+ Spacing between individual buttons in a JGActionSheet section
+ */
+#define kSpacingBetweenButtons 0
+
+
 #define kHostsCornerRadius 3.0f
 
 #define kSpacing 5.0f
