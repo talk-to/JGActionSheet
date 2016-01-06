@@ -394,7 +394,7 @@ static BOOL disableCustomEasing = NO;
     else if (buttonStyle == JGActionSheetButtonStyleCancel) {
         font = [UIFont systemFontOfSize:17.0f];
         titleColor = [UIColor blackColor];
-        
+      
         backgroundColor = [UIColor colorWithWhite:1.0f alpha:1.0f];
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
@@ -433,7 +433,7 @@ static BOOL disableCustomEasing = NO;
 - (JGButton *)makeButtonWithTitle:(NSString *)title style:(JGActionSheetButtonStyle)style {
     JGButton *b = [[JGButton alloc] init];
     
-    b.layer.cornerRadius = 2.0f;
+    b.layer.cornerRadius = kHostsCornerRadius;
     b.layer.masksToBounds = YES;
     b.layer.borderWidth = 1.0f;
     
