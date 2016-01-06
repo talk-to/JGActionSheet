@@ -331,7 +331,6 @@ static BOOL disableCustomEasing = NO;
         
           _buttons = actionSheetButtons.copy;
       }
-
     }
   
     return self;
@@ -393,10 +392,10 @@ static BOOL disableCustomEasing = NO;
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
     else if (buttonStyle == JGActionSheetButtonStyleCancel) {
-        font = [UIFont boldSystemFontOfSize:15.0f];
+        font = [UIFont systemFontOfSize:17.0f];
         titleColor = [UIColor blackColor];
         
-        backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
+        backgroundColor = [UIColor colorWithWhite:1.0f alpha:1.0f];
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
     else if (buttonStyle == JGActionSheetButtonStyleRed) {
