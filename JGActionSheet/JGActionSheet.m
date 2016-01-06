@@ -53,7 +53,7 @@
 #define kSpacingBetweenButtons 0
 
 
-#define kHostsCornerRadius 3.0f
+#define kHostsCornerRadius 6.0f
 
 #define kSpacing 5.0f
 
@@ -348,7 +348,7 @@ static BOOL disableCustomEasing = NO;
 
 - (void)setUpForContinuous:(BOOL)continuous {
     if (continuous) {
-        self.layer.cornerRadius = 0.0f;
+        self.layer.cornerRadius = kHostsCornerRadius;
         self.layer.shadowOpacity = 0.0f;
     }
     else {
