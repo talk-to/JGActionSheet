@@ -52,7 +52,6 @@
  */
 #define kSpacingBetweenButtons 0
 
-
 #define kHostsCornerRadius 6.0f
 
 #define kSpacing 5.0f
@@ -68,9 +67,11 @@
 
 #define kAnimationDurationForSectionCount(count) MAX(0.22f, MIN(count*0.12f, 0.45f))
 
+static NSString * const CancelButtonFontName = @"HelveticaNeue";
+
 #pragma mark - Helpers
 
-@interface JGButton()
+@interface JGButton ()
 
 @property (nonatomic, assign) NSUInteger row;
 
@@ -321,25 +322,19 @@ static BOOL disableCustomEasing = NO;
     self = [super init];
     if (self) {
       if (buttons.count) {
-          NSMutableArray *actionSheetButtons = [NSMutableArray arrayWithCapacity:buttons.count];
-          
           for (NSUInteger index = 0; index < buttons.count; index++) {
-              JGButton *b = (JGButton *)buttons[index];
-              b.row = index;
-            
-              [b setBackgroundImage:[self pixelImageWithColor:[UIColor colorWithCGColor: b.layer.borderColor]]
-                           forState:UIControlStateHighlighted];
-              [b addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
-            
-              [self addSubview:b];
-              
-              [actionSheetButtons addObject:b];
+              JGButton *button = (JGButton *)buttons[index];
+              button.row = index;
+              [button setBackgroundImage:[self pixelImageWithColor:
+                                          [UIColor colorWithCGColor: button.layer.borderColor]]
+                                forState:UIControlStateHighlighted];
+              [button addTarget:self action:@selector(buttonPressed:)
+               forControlEvents:UIControlEventTouchUpInside];
+              [self addSubview:button];
           }
-        
-          _buttons = actionSheetButtons.copy;
+          _buttons = buttons.copy;
       }
     }
-  
     return self;
 }
 
@@ -399,7 +394,7 @@ static BOOL disableCustomEasing = NO;
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
     else if (buttonStyle == JGActionSheetButtonStyleCancel) {
-        font = [UIFont systemFontOfSize:17.0f];
+        font = [UIFont fontWithName:CancelButtonFontName size:17.0f];
         titleColor = [UIColor blackColor];
       
         backgroundColor = [UIColor colorWithWhite:1.0f alpha:1.0f];
