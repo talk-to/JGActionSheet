@@ -802,16 +802,23 @@ static BOOL disableCustomEasing = NO;
     _scrollViewHost.backgroundColor = [UIColor clearColor];
     
     CGRect frame = self.frame;
-    
+    UIEdgeInsets insets = self.insets;
+  
     if (iPad) {
         CGFloat fixedWidth = kFixedWidth;
         
         frame.origin.x = (CGRectGetWidth(frame)-fixedWidth)/2.0f;
         
         frame.size.width = fixedWidth;
+    } else {
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        if (orientation == UIInterfaceOrientationLandscapeLeft ||
+            orientation == UIInterfaceOrientationLandscapeRight) {
+            insets = self.landscapeInsets;
+        }
     }
     
-    frame = UIEdgeInsetsInsetRect(frame, self.insets);
+    frame = UIEdgeInsetsInsetRect(frame, insets);
     
     [self layoutSheetForFrame:frame fitToRect:!iPad initialSetUp:initial continuous:NO];
 }

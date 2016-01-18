@@ -214,6 +214,11 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
 @property (nonatomic, assign) UIEdgeInsets insets;
 
 /**
+ Insets for the action sheet inside its hosting view for landscape orientation on iPhone idiom.
+ */
+@property (nonatomic, assign) UIEdgeInsets landscapeInsets;
+
+/**
  Convenience initializer for the @c initWithSections: method.
  */
 + (instancetype)actionSheetWithSections:(NSArray *)sections;
