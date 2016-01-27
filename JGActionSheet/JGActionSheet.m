@@ -47,7 +47,12 @@
 #define iPad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
 #endif
 
-#define kHostsCornerRadius 3.0f
+/**
+ Spacing between individual buttons in a JGActionSheet section
+ */
+#define kSpacingBetweenButtons 0
+
+#define kHostsCornerRadius 6.0f
 
 #define kSpacing 5.0f
 
@@ -62,9 +67,11 @@
 
 #define kAnimationDurationForSectionCount(count) MAX(0.22f, MIN(count*0.12f, 0.45f))
 
+static NSString * const CancelButtonFontName = @"HelveticaNeue";
+
 #pragma mark - Helpers
 
-@interface JGButton : UIButton
+@interface JGButton ()
 
 @property (nonatomic, assign) NSUInteger row;
 
@@ -311,16 +318,35 @@ static BOOL disableCustomEasing = NO;
     return self;
 }
 
+- (instancetype)initWithButtons:(NSArray *)buttons {
+    self = [super init];
+    if (self) {
+      if (buttons.count) {
+          for (NSUInteger index = 0; index < buttons.count; index++) {
+              JGButton *button = (JGButton *)buttons[index];
+              button.row = index;
+              [button setBackgroundImage:[self pixelImageWithColor:
+                                          [UIColor colorWithCGColor: button.layer.borderColor]]
+                                forState:UIControlStateHighlighted];
+              [button addTarget:self action:@selector(buttonPressed:)
+               forControlEvents:UIControlEventTouchUpInside];
+              [self addSubview:button];
+          }
+          _buttons = buttons.copy;
+      }
+    }
+    return self;
+}
+
+
 #pragma mark UI
 
 - (void)setUpForContinuous:(BOOL)continuous {
     if (continuous) {
-        self.backgroundColor = [UIColor clearColor];
-        self.layer.cornerRadius = 0.0f;
+        self.layer.cornerRadius = kHostsCornerRadius;
         self.layer.shadowOpacity = 0.0f;
     }
     else {
-        self.backgroundColor = [UIColor whiteColor];
         self.layer.cornerRadius = kHostsCornerRadius;
         
         self.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -368,10 +394,10 @@ static BOOL disableCustomEasing = NO;
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
     else if (buttonStyle == JGActionSheetButtonStyleCancel) {
-        font = [UIFont boldSystemFontOfSize:15.0f];
+        font = [UIFont fontWithName:CancelButtonFontName size:17.0f];
         titleColor = [UIColor blackColor];
-        
-        backgroundColor = [UIColor colorWithWhite:0.95f alpha:1.0f];
+      
+        backgroundColor = [UIColor colorWithWhite:1.0f alpha:1.0f];
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
     else if (buttonStyle == JGActionSheetButtonStyleRed) {
@@ -409,7 +435,7 @@ static BOOL disableCustomEasing = NO;
 - (JGButton *)makeButtonWithTitle:(NSString *)title style:(JGActionSheetButtonStyle)style {
     JGButton *b = [[JGButton alloc] init];
     
-    b.layer.cornerRadius = 2.0f;
+    b.layer.cornerRadius = kHostsCornerRadius;
     b.layer.masksToBounds = YES;
     b.layer.borderWidth = 1.0f;
     
@@ -431,7 +457,9 @@ static BOOL disableCustomEasing = NO;
 - (CGRect)layoutForWidth:(CGFloat)width {
     CGFloat buttonHeight = 40.0f;
     CGFloat spacing = kSpacing;
-    
+    CGFloat spacingBetweenButtons = kSpacingBetweenButtons;
+    CGFloat buttonWidthSpacing = kSpacingBetweenButtons;
+  
     CGFloat height = 0.0f;
     
     if (self.titleLabel) {
@@ -468,9 +496,9 @@ static BOOL disableCustomEasing = NO;
     }
     
     for (UIButton *button in self.buttons) {
-        height += spacing;
+        height += spacingBetweenButtons;
         
-        button.frame = (CGRect){{spacing, height}, {width-spacing*2.0f, buttonHeight}};
+        button.frame = (CGRect){{buttonWidthSpacing, height}, {width-buttonWidthSpacing*2.0f, buttonHeight}};
         
         height += buttonHeight;
     }
@@ -483,7 +511,7 @@ static BOOL disableCustomEasing = NO;
         height += CGRectGetHeight(self.contentView.frame);
     }
     
-    height += spacing;
+    height += spacingBetweenButtons;
     
     self.frame = (CGRect){CGPointZero, {width, height}};
     
@@ -774,16 +802,23 @@ static BOOL disableCustomEasing = NO;
     _scrollViewHost.backgroundColor = [UIColor clearColor];
     
     CGRect frame = self.frame;
-    
+    UIEdgeInsets insets = self.insets;
+  
     if (iPad) {
         CGFloat fixedWidth = kFixedWidth;
         
         frame.origin.x = (CGRectGetWidth(frame)-fixedWidth)/2.0f;
         
         frame.size.width = fixedWidth;
+    } else {
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        if (orientation == UIInterfaceOrientationLandscapeLeft ||
+            orientation == UIInterfaceOrientationLandscapeRight) {
+            insets = self.landscapeInsets;
+        }
     }
     
-    frame = UIEdgeInsetsInsetRect(frame, self.insets);
+    frame = UIEdgeInsetsInsetRect(frame, insets);
     
     [self layoutSheetForFrame:frame fitToRect:!iPad initialSetUp:initial continuous:NO];
 }
