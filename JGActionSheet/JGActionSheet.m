@@ -455,7 +455,7 @@ static BOOL disableCustomEasing = NO;
 }
 
 - (CGRect)layoutForWidth:(CGFloat)width {
-    CGFloat buttonHeight = 40.0f;
+    CGFloat buttonHeight = 44.0f;
     CGFloat spacing = kSpacing;
     CGFloat spacingBetweenButtons = kSpacingBetweenButtons;
     CGFloat buttonWidthSpacing = kSpacingBetweenButtons;
