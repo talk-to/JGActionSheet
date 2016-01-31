@@ -812,8 +812,8 @@ static BOOL disableCustomEasing = NO;
         frame.size.width = fixedWidth;
     } else {
         UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-        if (orientation == UIInterfaceOrientationLandscapeLeft ||
-            orientation == UIInterfaceOrientationLandscapeRight) {
+        if (orientation == UIInterfaceOrientationLandscapeLeft
+            || orientation == UIInterfaceOrientationLandscapeRight) {
             insets = self.landscapeInsets;
         }
     }
