@@ -287,4 +287,9 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
  */
 - (void)dismissAnimated:(BOOL)animated;
 
+/**
+ This method lays out the action sheet's views if required on device rotation.
+ */
+- (void)orientationChanged;
+
 @end
