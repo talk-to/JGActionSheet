@@ -455,7 +455,7 @@ static BOOL disableCustomEasing = NO;
 }
 
 - (CGRect)layoutForWidth:(CGFloat)width {
-    CGFloat buttonHeight = 40.0f;
+    CGFloat buttonHeight = 44.0f;
     CGFloat spacing = kSpacing;
     CGFloat spacingBetweenButtons = kSpacingBetweenButtons;
     CGFloat buttonWidthSpacing = kSpacingBetweenButtons;
@@ -627,7 +627,7 @@ static BOOL disableCustomEasing = NO;
     }
 }
 
-- (void)orientationChanged {
+- (void)updateLayoutOnOrientationChange {
     if (_targetView && !CGRectEqualToRect(self.bounds, _targetView.bounds)) {
         disableCustomEasing = YES;
         [UIView animateWithDuration:(iPad ? 0.4 : 0.3) delay:0.0 options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -720,8 +720,6 @@ static BOOL disableCustomEasing = NO;
     _finalContentFrame = _scrollViewHost.frame;
     
     _scrollView.frame = _scrollViewHost.bounds;
-    
-    [_scrollView scrollRectToVisible:(CGRect){{0.0f, _scrollView.contentSize.height-1.0f}, {1.0f, 1.0f}} animated:NO];
 }
 
 - (void)layoutForVisible:(BOOL)visible {
@@ -774,7 +772,7 @@ static BOOL disableCustomEasing = NO;
         }
     };
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLayoutOnOrientationChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
     
     [self layoutForVisible:!animated];
     
@@ -812,8 +810,8 @@ static BOOL disableCustomEasing = NO;
         frame.size.width = fixedWidth;
     } else {
         UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-        if (orientation == UIInterfaceOrientationLandscapeLeft ||
-            orientation == UIInterfaceOrientationLandscapeRight) {
+        if (orientation == UIInterfaceOrientationLandscapeLeft
+            || orientation == UIInterfaceOrientationLandscapeRight) {
             insets = self.landscapeInsets;
         }
     }
@@ -899,7 +897,7 @@ static BOOL disableCustomEasing = NO;
         }
     };
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orientationChanged) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateLayoutOnOrientationChange) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
     
     [self layoutForVisible:!animated];
     
