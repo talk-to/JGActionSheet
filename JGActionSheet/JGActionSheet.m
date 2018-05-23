@@ -394,8 +394,8 @@ static BOOL disableCustomEasing = NO;
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
     else if (buttonStyle == JGActionSheetButtonStyleCancel) {
-        font = [UIFont fontWithName:CancelButtonFontName size:17.0f];
-        titleColor = [UIColor blackColor];
+        font = [UIFont boldSystemFontOfSize:20.0f];
+        titleColor = rgb(0, 118, 255);
       
         backgroundColor = [UIColor colorWithWhite:1.0f alpha:1.0f];
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
