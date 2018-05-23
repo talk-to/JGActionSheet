@@ -52,14 +52,14 @@
  */
 #define kSpacingBetweenButtons 0
 
-#define kHostsCornerRadius 6.0f
+#define kHostsCornerRadius 12.0f
 
 #define kSpacing 5.0f
 
 #define kArrowBaseWidth 20.0f
 #define kArrowHeight 10.0f
 
-#define kShadowRadius 4.0f
+#define kShadowRadius 8.0f
 #define kShadowOpacity 0.2f
 
 #define kFixedWidth 320.0f
