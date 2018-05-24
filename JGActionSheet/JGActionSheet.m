@@ -52,14 +52,14 @@
  */
 #define kSpacingBetweenButtons 0
 
-#define kHostsCornerRadius 6.0f
+#define kHostsCornerRadius 12.0f
 
 #define kSpacing 5.0f
 
 #define kArrowBaseWidth 20.0f
 #define kArrowHeight 10.0f
 
-#define kShadowRadius 4.0f
+#define kShadowRadius 8.0f
 #define kShadowOpacity 0.2f
 
 #define kFixedWidth 320.0f
@@ -394,8 +394,8 @@ static BOOL disableCustomEasing = NO;
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     }
     else if (buttonStyle == JGActionSheetButtonStyleCancel) {
-        font = [UIFont fontWithName:CancelButtonFontName size:17.0f];
-        titleColor = [UIColor blackColor];
+        font = [UIFont boldSystemFontOfSize:20.0f];
+        titleColor = rgb(0, 118, 255);
       
         backgroundColor = [UIColor colorWithWhite:1.0f alpha:1.0f];
         borderColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
@@ -455,7 +455,7 @@ static BOOL disableCustomEasing = NO;
 }
 
 - (CGRect)layoutForWidth:(CGFloat)width {
-    CGFloat buttonHeight = 44.0f;
+    CGFloat buttonHeight = 57.0f;
     CGFloat spacing = kSpacing;
     CGFloat spacingBetweenButtons = kSpacingBetweenButtons;
     CGFloat buttonWidthSpacing = kSpacingBetweenButtons;
