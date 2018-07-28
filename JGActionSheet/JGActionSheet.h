@@ -32,6 +32,13 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
     JGActionSheetArrowDirectionBottom,
 };
 
+/**
+ Button heights for JGActionSheet buttons.
+ */
+typedef NS_ENUM(NSUInteger, JGActionSheetButtonHeight) {
+    JGActionSheetButtonHeightDefault = 57,
+    JGActionSheetButtonHeightSmall = 44
+};
 
 /**
  Custom button class for JGActionSheet
@@ -92,6 +99,12 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
 - (instancetype)initWithTitle:(NSString *)title message:(NSString *)message buttonTitles:(NSArray *)buttonTitles buttonStyle:(JGActionSheetButtonStyle)buttonStyle;
 
 /**
+ Similar to method initWithTitle: message: buttonTitles: buttonStyle:
+ Takes extra param buttonHeight
+ */
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message buttonTitles:(NSArray *)buttonTitles buttonStyle:(JGActionSheetButtonStyle)buttonStyle buttonHeight:(JGActionSheetButtonHeight)buttonHeight;
+
+/**
  Convenience initializer for the @c initWithTitle:message:contentView: method.
  */
 + (instancetype)sectionWithTitle:(NSString *)title message:(NSString *)message contentView:(UIView *)contentView;
@@ -110,6 +123,13 @@ typedef NS_ENUM(NSUInteger, JGActionSheetArrowDirection) {
  @warning Ensure that button array contains objects of class type JGButton or its subclasses.
  */
 - (instancetype)initWithButtons:(NSArray *)buttons;
+
+/**
+ Similar to method initWithButtons:
+ Takes extra param buttonHeight
+ */
+- (instancetype)initWithButtons:(NSArray *)buttons
+                   buttonHeight:(JGActionSheetButtonHeight)buttonHeight;
 
 /**
  Sets the button style for a specific button.

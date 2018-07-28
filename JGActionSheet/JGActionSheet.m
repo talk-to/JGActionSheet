@@ -201,6 +201,8 @@ static BOOL disableCustomEasing = NO;
 
 - (void)setUpForContinuous:(BOOL)continuous;
 
+@property (nonatomic) JGActionSheetButtonHeight buttonHeight;
+
 @end
 
 @implementation JGActionSheetSection
@@ -215,7 +217,18 @@ static BOOL disableCustomEasing = NO;
     return [[self alloc] initWithTitle:title message:message buttonTitles:buttonTitles buttonStyle:buttonStyle];
 }
 
-- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message buttonTitles:(NSArray *)buttonTitles buttonStyle:(JGActionSheetButtonStyle)buttonStyle {
+- (instancetype)initWithTitle:(NSString *)title
+                      message:(NSString *)message
+                 buttonTitles:(NSArray *)buttonTitles
+                  buttonStyle:(JGActionSheetButtonStyle)buttonStyle {
+    return [self initWithTitle:title
+                       message:message
+                  buttonTitles:buttonTitles
+                   buttonStyle:buttonStyle
+                  buttonHeight:JGActionSheetButtonHeightDefault];
+}
+
+- (instancetype)initWithTitle:(NSString *)title message:(NSString *)message buttonTitles:(NSArray *)buttonTitles buttonStyle:(JGActionSheetButtonStyle)buttonStyle buttonHeight:(JGActionSheetButtonHeight)buttonHeight {
     self = [super init];
     
     if (self) {
@@ -267,6 +280,7 @@ static BOOL disableCustomEasing = NO;
             
             _buttons = buttons.copy;
         }
+        _buttonHeight = buttonHeight;
     }
     
     return self;
@@ -319,6 +333,12 @@ static BOOL disableCustomEasing = NO;
 }
 
 - (instancetype)initWithButtons:(NSArray *)buttons {
+    return [self initWithButtons:buttons
+                    buttonHeight:JGActionSheetButtonHeightDefault];
+}
+
+- (instancetype)initWithButtons:(NSArray *)buttons
+                   buttonHeight:(JGActionSheetButtonHeight)buttonHeight {
     self = [super init];
     if (self) {
       if (buttons.count) {
@@ -333,6 +353,7 @@ static BOOL disableCustomEasing = NO;
               [self addSubview:button];
           }
           _buttons = buttons.copy;
+          _buttonHeight = buttonHeight;
       }
     }
     return self;
@@ -455,7 +476,7 @@ static BOOL disableCustomEasing = NO;
 }
 
 - (CGRect)layoutForWidth:(CGFloat)width {
-    CGFloat buttonHeight = 57.0f;
+    CGFloat buttonHeight = self.buttonHeight;
     CGFloat spacing = kSpacing;
     CGFloat spacingBetweenButtons = kSpacingBetweenButtons;
     CGFloat buttonWidthSpacing = kSpacingBetweenButtons;
