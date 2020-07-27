@@ -134,13 +134,13 @@ static BOOL disableCustomEasing = NO;
 
 @interface JGActionSheetTriangle : UIView
 
-- (void)setFrame:(CGRect)frame arrowDirection:(JGActionSheetArrowDirection)direction;
+- (void)setFrame:(CGRect)frame arrowDirection:(JGActionSheetArrowDirection)direction fillColor: (UIColor *) color;
 
 @end
 
 @implementation JGActionSheetTriangle
 
-- (void)setFrame:(CGRect)frame arrowDirection:(JGActionSheetArrowDirection)direction {
+- (void)setFrame:(CGRect)frame arrowDirection:(JGActionSheetArrowDirection)direction fillColor: (UIColor *) color {
     self.frame = frame;
     
     [((CAShapeLayer *)self.layer) setPath:trianglePath(frame, direction, YES).CGPath];
@@ -170,7 +170,7 @@ static BOOL disableCustomEasing = NO;
     self.layer.shadowOpacity = kShadowOpacity;
     
     self.layer.contentsScale = [UIScreen mainScreen].scale;
-    ((CAShapeLayer *)self.layer).fillColor = [UIColor whiteColor].CGColor;
+    ((CAShapeLayer *)self.layer).fillColor = color.CGColor;
 }
 
 + (Class)layerClass {
@@ -987,7 +987,11 @@ static BOOL disableCustomEasing = NO;
         
         finalFrame = UIEdgeInsetsInsetRect(finalFrame, self.insets);
         
-        _scrollViewHost.backgroundColor = [UIColor whiteColor];
+        if (@available(iOS 13.0, *)) {
+          _scrollViewHost.backgroundColor = [UIColor secondarySystemBackgroundColor];
+        } else {
+          _scrollViewHost.backgroundColor = [UIColor whiteColor];
+        }
         
         _scrollViewHost.layer.cornerRadius = kHostsCornerRadius;
         
@@ -1069,7 +1073,11 @@ static BOOL disableCustomEasing = NO;
         [self addSubview:_arrowView];
     }
     
-    [_arrowView setFrame:arrowFrame arrowDirection:arrowDirection];
+    if (@available(iOS 13.0, *)) {
+      [_arrowView setFrame:arrowFrame arrowDirection:arrowDirection fillColor:[UIColor secondarySystemBackgroundColor]];
+    } else {
+      [_arrowView setFrame:arrowFrame arrowDirection:arrowDirection fillColor:[UIColor whiteColor]];
+    }
     
     if (!CGRectContainsRect(_targetView.bounds, finalFrame) || !CGRectContainsRect(_targetView.bounds, arrowFrame)) {
         NSLog(@"WARNING: Action sheet does not fit within view bounds! Select a different arrow direction or provide a different anchor point!");
